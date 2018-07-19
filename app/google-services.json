@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "254203848554",
+    "firebase_url": "https://surveysapp-bc045.firebaseio.com",
+    "project_id": "surveysapp-bc045",
+    "storage_bucket": "surveysapp-bc045.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:254203848554:android:6c6472aa44d7f405",
+        "android_client_info": {
+          "package_name": "com.example.mostafa.surveysapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "254203848554-jt86io09t5j0hsdl2u1lr1lnmrsqp3cf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mostafa.surveysapp",
+            "certificate_hash": "da4023bfb9b7fb833708709995df457a71e142ac"
+          }
+        },
+        {
+          "client_id": "254203848554-qc97d9e5pdvmlo6uh73d7kkl6capc919.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUxtBdl03XZ2yGPWQauvYF1YnbW3ufJrU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "254203848554-qc97d9e5pdvmlo6uh73d7kkl6capc919.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

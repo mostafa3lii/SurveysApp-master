@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context=".NewSurveyActivity">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:padding="16dp"
+            android:id="@+id/survey_title"
+            android:hint="@string/survey_title"/>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/questions_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    </LinearLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:layout_gravity="center|bottom"
+        android:background="@drawable/button_background"
+        android:layout_margin="8dp"
+        android:textStyle="bold"
+        android:id="@+id/publish"
+        android:text="@string/publish"/>
+
+</FrameLayout>
+
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/add_question"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom|end"
+        app:menu_animationDelayPerItem="50"
+        android:paddingEnd="8dp"
+        android:paddingStart="8dp"
+        app:menu_backgroundColor="#5000"
+        app:menu_colorNormal="@color/colorAccent"
+        app:menu_colorPressed="@color/colorPrimary"
+        app:menu_colorRipple="#eee"
+        app:menu_fab_size="normal"
+        app:menu_icon="@drawable/fab_add"
+        app:menu_labels_colorNormal="#333"
+        app:menu_labels_colorPressed="#444"
+        app:menu_labels_colorRipple="#eee"
+        app:menu_labels_cornerRadius="3dp"
+        app:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
+        app:menu_labels_padding="8dp"
+        app:menu_labels_position="left"
+        app:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
+        app:menu_labels_singleLine="true"
+        app:menu_labels_textColor="@android:color/white"
+        app:menu_labels_textSize="15sp"
+        app:menu_openDirection="up"
+        app:menu_shadowColor="#ccc"
+        app:menu_shadowRadius="2dp"
+        app:menu_shadowYOffset="3dp">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/multi_choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_check_box_black_24"
+            app:fab_colorNormal="#13ddbb"
+            app:fab_colorPressed="#13ddbb"
+            app:fab_colorRipple="#eee"
+            app:fab_label="@string/multiple_answers"
+            app:fab_size="mini" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/single_choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_radio_button_checked_black_24"
+            app:fab_colorNormal="#13bbbb"
+            app:fab_colorPressed="#13bbbb"
+            app:fab_colorRipple="#eee"
+            app:fab_label="@string/single_answer"
+            app:fab_size="mini" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/essay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_message_black_24"
+            app:fab_colorNormal="#1399cc"
+            app:fab_colorPressed="#1399cc"
+            app:fab_colorRipple="#eee"
+            app:fab_label="@string/essay"
+            app:fab_size="mini" />
+
+    </com.github.clans.fab.FloatingActionMenu>
+
+
+</android.support.design.widget.CoordinatorLayout>

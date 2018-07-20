@@ -28,7 +28,7 @@ public class SingleAnswersAdapter extends RecyclerView.Adapter<SingleAnswersAdap
     @Override
     public SingleAnswersAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.single_answer_list_item, parent, false);
+                .inflate(R.layout.sanswer_list_item, parent, false);
         return new SingleAnswersAdapter.ViewHolder(view);
     }
 

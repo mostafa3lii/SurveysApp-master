@@ -32,4 +32,6 @@
     <string name="answers">answers</string>
     <string name="type_your_answer">Type your answer</string>
     <string name="answer_all_questions">Answer all questions</string>
+    <string name="next">Next</string>
+    <string name="progress">%d/%d</string>
 </resources>

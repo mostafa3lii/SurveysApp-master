@@ -4,18 +4,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="8dp"
     tools:context=".SurveyActivity">
 
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/questions_list"
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/question"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/essay_question_background"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/essay_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:gravity="top"
+            android:padding="4dp"
+            android:hint="@string/type_your_answer"
+            android:inputType="textMultiLine"
+            android:minLines="3" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/options_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp" />
+
+    </LinearLayout>
+</LinearLayout>
+
+    <Button
+        android:id="@+id/next_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_background"
+        android:text="@string/next"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="8dp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
         />
 
     <Button
-        android:id="@+id/submit_result"
+        android:id="@+id/submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/button_background"
@@ -25,5 +68,12 @@
         android:textColor="@android:color/white"
         android:textStyle="bold"
         />
+
+    <TextView
+        android:id="@+id/progress_text"
+        android:layout_gravity="bottom|start"
+        android:layout_width="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_height="wrap_content"/>
 
 </FrameLayout>

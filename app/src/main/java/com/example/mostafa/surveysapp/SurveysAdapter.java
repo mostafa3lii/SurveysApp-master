@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.example.mostafa.surveysapp.models.Survey;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -19,9 +18,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class SurveysAdapter extends RecyclerView.Adapter<SurveysAdapter.ViewHolder> {
 
     private List<Survey> surveys ;
+    private OnClickListener onClickListener;
 
-    public SurveysAdapter(List<Survey> surveys) {
+    public SurveysAdapter(List<Survey> surveys, OnClickListener onClickListener) {
         this.surveys = surveys;
+        this.onClickListener = onClickListener;
     }
 
     @NonNull
@@ -34,9 +35,15 @@ public class SurveysAdapter extends RecyclerView.Adapter<SurveysAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Survey survey = surveys.get(position);
+        final Survey survey = surveys.get(position);
         holder.titleTextView.setText(survey.getTitle());
-        //holder.countTextView.setText(String.valueOf(survey.getQuestions().size()));
+        holder.countTextView.setText(String.valueOf(survey.getQuestions().size()));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickListener.onClick(survey);
+            }
+        });
     }
 
     @Override
@@ -61,15 +68,7 @@ public class SurveysAdapter extends RecyclerView.Adapter<SurveysAdapter.ViewHold
         notifyDataSetChanged();
     }
 
-    public ArrayList<Survey> getMySurveys(String id) {
-        ArrayList<Survey> mySurveys = new ArrayList<>();
-        for (Survey survey :this.surveys) {
-            if (survey.getOwnerId().equals(id))
-            {
-                mySurveys.add(survey);
-            }
-        }
-
-        return mySurveys;
+    public interface OnClickListener{
+        public void onClick (Survey survey);
     }
 }

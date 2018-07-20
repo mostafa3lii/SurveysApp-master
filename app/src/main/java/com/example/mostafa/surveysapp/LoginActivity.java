@@ -26,13 +26,14 @@ public class LoginActivity extends AppCompatActivity {
     private DatabaseReference mUsersReference;
 
     private static final int RC_SIGN_IN = 123;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
-        mUsersReference = FirebaseDatabase.getInstance().getReference().child("users");
+        mUsersReference = FirebaseDatabase.getInstance().getReference().child(getString(R.string.users));
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -47,8 +48,8 @@ public class LoginActivity extends AppCompatActivity {
                             {
                                 addUser(user);
                             }
-                                startActivity(new Intent(LoginActivity.this,SurveysListActivity.class));
-                                finish();
+                            startActivity(new Intent(LoginActivity.this,SurveysListActivity.class));
+                            finish();
                         }
 
                         @Override
@@ -93,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
         user.setName(firebaseUser.getDisplayName());
         user.setUid(firebaseUser.getUid());
         if (firebaseUser.getPhotoUrl()!=null)
-        user.setPhotoUrl(firebaseUser.getPhotoUrl().toString());
+            user.setPhotoUrl(firebaseUser.getPhotoUrl().toString());
         mUsersReference.child(user.getUid()).setValue(user);
     }
 

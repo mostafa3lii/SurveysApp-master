@@ -8,12 +8,12 @@ import java.util.List;
 
 public class Question implements Parcelable {
     private String question;
-    private List<String> options;
+    private List<String> answers;
     private int type;
 
-    public Question(String question, List<String> options, int type) {
+    public Question(String question, List<String> answers, int type) {
         this.question = question;
-        this.options = options;
+        this.answers = answers;
         this.type = type;
     }
 
@@ -28,12 +28,12 @@ public class Question implements Parcelable {
         this.question = question;
     }
 
-    public List<String> getOptions() {
-        return options;
+    public List<String> getAnswers() {
+        return answers;
     }
 
-    public void setOptions(List<String> options) {
-        this.options = options;
+    public void setAnswers(List<String> answers) {
+        this.answers = answers;
     }
 
     public int getType() {
@@ -47,10 +47,10 @@ public class Question implements Parcelable {
     protected Question(Parcel in) {
         question = in.readString();
         if (in.readByte() == 0x01) {
-            options = new ArrayList<String>();
-            in.readList(options, String.class.getClassLoader());
+            answers = new ArrayList<String>();
+            in.readList(answers, String.class.getClassLoader());
         } else {
-            options = null;
+            answers = null;
         }
         type = in.readInt();
     }
@@ -63,11 +63,11 @@ public class Question implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(question);
-        if (options == null) {
+        if (answers == null) {
             dest.writeByte((byte) (0x00));
         } else {
             dest.writeByte((byte) (0x01));
-            dest.writeList(options);
+            dest.writeList(answers);
         }
         dest.writeInt(type);
     }

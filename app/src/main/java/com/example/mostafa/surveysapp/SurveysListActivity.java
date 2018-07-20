@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.example.mostafa.surveysapp.models.Question;
 import com.example.mostafa.surveysapp.models.Survey;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,38 +23,55 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SurveysListActivity extends AppCompatActivity {
+public class SurveysListActivity extends AppCompatActivity implements SurveysAdapter.OnClickListener{
 
 
     @BindView(R.id.surveys_list)RecyclerView surveysRecyclerView;
     private SurveysAdapter mSurveysAdapter;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private DatabaseReference mUsersReference;
+    private DatabaseReference mSurveysReference;
     private ValueEventListener mValueEventListener ;
+    private List<Survey> mSurveys;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_surveys_list);
         ButterKnife.bind(this);
         mAuth = FirebaseAuth.getInstance();
-        mUsersReference = FirebaseDatabase.getInstance().getReference().child("surveys");
+        mSurveysReference = FirebaseDatabase.getInstance().getReference().child(getString(R.string.surveys));
         surveysRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mSurveysAdapter = new SurveysAdapter(new ArrayList<Survey>());
+
+
+        // testing dummy survey
+        Survey survey = getDummySurvey();
+        List<Survey> surveys = new ArrayList<>();
+        surveys.add(survey);
+
+        mSurveysAdapter = new SurveysAdapter(surveys,this);
         surveysRecyclerView.setAdapter(mSurveysAdapter);
+
+
         mValueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+               /* mSurveys = new ArrayList<>();
                 List<Survey> surveys = new ArrayList<>();
                 for (DataSnapshot snapshot :dataSnapshot.getChildren()) {
-                    surveys.add(snapshot.getValue(Survey.class));
+                    String uId  = mAuth.getCurrentUser().getUid();
+                    Survey survey = snapshot.getValue(Survey.class);
+                    mSurveys.add(survey);
+                    if(!snapshot.child(getString(R.string.results)).hasChild(uId) && !survey.getOwnerId().equals(uId))
+                        surveys.add(survey);
                 }
-                mSurveysAdapter.addAll(surveys);
+                mSurveysAdapter.addAll(surveys);*/
+
             }
 
             @Override
@@ -63,16 +81,41 @@ public class SurveysListActivity extends AppCompatActivity {
         };
     }
 
+    private Survey getDummySurvey() {
+        Survey survey = new Survey();
+        survey.setTitle("Survey title");
+        survey.setOwnerId("dsad");
+        survey.setOwnerPic("sasas");
+        List<Question> questions = new ArrayList<>();
+        Question question = new Question();
+        question.setQuestion("What is essay now??");
+        question.setAnswers(new ArrayList<String>());
+        question.setType(1);
+        Question question1 = new Question();
+        question1.setType(2);
+        question1.setAnswers(new ArrayList<String>(Arrays.asList("first", "second","third")));
+        question1.setQuestion("who has answers??");
+        Question question2 = new Question();
+        question2.setType(2);
+        question2.setAnswers(new ArrayList<String>(Arrays.asList("first", "second","third")));
+        question2.setQuestion("who has answers??");
+        questions.add(question);
+        questions.add(question1);
+        questions.add(question2);
+        survey.setQuestions(questions);
+        return survey;
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
-        mUsersReference.addValueEventListener(mValueEventListener);
+        mSurveysReference.addValueEventListener(mValueEventListener);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mUsersReference.removeEventListener(mValueEventListener);
+        mSurveysReference.removeEventListener(mValueEventListener);
     }
 
     @Override
@@ -101,14 +144,33 @@ public class SurveysListActivity extends AppCompatActivity {
                 return true;
             case R.id.my_surveys: {
                 Intent intent = new Intent(this, MySurveysActivity.class);
-                ArrayList<Survey> mySurveys = mSurveysAdapter.getMySurveys(FirebaseAuth.getInstance().getUid());
+                ArrayList<Survey> mySurveys = getMySurveys();
                 intent.putParcelableArrayListExtra(getString(R.string.my_surveys),mySurveys);
                 startActivity(intent);
 
             }
-                return true;
+            return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private ArrayList<Survey> getMySurveys ()
+    {
+        ArrayList<Survey> mySurveys = new ArrayList<>();
+        for (Survey survey :mySurveys) {
+            if (survey.getOwnerId().equals(mAuth.getCurrentUser().getUid()))
+            {
+                mySurveys.add(survey);
+            }
+        }
+        return mySurveys;
+    }
+
+    @Override
+    public void onClick(Survey survey) {
+        Intent intent = new Intent(this,SurveyActivity.class);
+        intent.putExtra(getString(R.string.survey),survey);
+        startActivity(intent);
     }
 }

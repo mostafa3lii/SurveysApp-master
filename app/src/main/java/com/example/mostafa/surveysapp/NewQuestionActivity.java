@@ -2,8 +2,8 @@ package com.example.mostafa.surveysapp;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -15,7 +15,6 @@ import com.example.mostafa.surveysapp.models.Question;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -100,7 +99,7 @@ public class NewQuestionActivity extends AppCompatActivity implements View.OnCli
             Toast.makeText(this, getString(R.string.fill_blanks), Toast.LENGTH_SHORT).show();
         } else {
             Question question = new Question();
-            question.setOptions(mOptionsAdapter.getOptions());
+            question.setAnswers(mOptionsAdapter.getOptions());
             question.setQuestion(questionField.getText().toString());
             question.setType(mType);
             Intent intent = new Intent();

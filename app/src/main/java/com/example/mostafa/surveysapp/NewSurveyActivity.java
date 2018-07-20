@@ -15,14 +15,11 @@ import com.example.mostafa.surveysapp.models.Question;
 import com.example.mostafa.surveysapp.models.Survey;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,22 +59,24 @@ public class NewSurveyActivity extends AppCompatActivity implements View.OnClick
 
     private void publishSurvey()
     {
-         if (titleField.getText().toString().isEmpty()) {
-             Toast.makeText(this, getString(R.string.add_survey_title), Toast.LENGTH_SHORT).show();
-             return;
-         }
-         else if (mQuestionsAdapter.getQuestions().size()==0)
-         {
-             Toast.makeText(this, getString(R.string.no_questions_added), Toast.LENGTH_SHORT).show();
-             return;
-         }
-         Survey survey = new Survey();
-         survey.setOwnerPic(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString());
-         survey.setQuestions(mQuestionsAdapter.getQuestions());
-         survey.setOwnerId(FirebaseAuth.getInstance().getCurrentUser().getUid());
-         survey.setTitle(titleField.getText().toString());
-         DatabaseReference surveysReference = FirebaseDatabase.getInstance().getReference().child("surveys");
-         surveysReference.push().setValue(survey);
+        if (titleField.getText().toString().isEmpty()) {
+            Toast.makeText(this, getString(R.string.add_survey_title), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else if (mQuestionsAdapter.getQuestions().size()==0)
+        {
+            Toast.makeText(this, getString(R.string.no_questions_added), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Survey survey = new Survey();
+        survey.setOwnerPic(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString());
+        survey.setQuestions(mQuestionsAdapter.getQuestions());
+        survey.setOwnerId(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        survey.setTitle(titleField.getText().toString());
+        DatabaseReference surveysReference = FirebaseDatabase.getInstance().getReference().child("surveys");
+        surveysReference.push().setValue(survey);
+        Toast.makeText(this, getString(R.string.survey_published_successfully), Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     @Override

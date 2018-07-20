@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.example.mostafa.surveysapp.models.Question;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,7 +38,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
     public void onBindViewHolder(@NonNull QuestionsAdapter.ViewHolder holder, int position) {
         Question question = questions.get(position);
         holder.questionTextView.setText(question.getQuestion());
-        FinalOptionsAdapter finalOptionsAdapter = new FinalOptionsAdapter(question.getOptions());
+        FinalOptionsAdapter finalOptionsAdapter = new FinalOptionsAdapter(question.getAnswers());
         holder.optionsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         holder.optionsRecyclerView.setAdapter(finalOptionsAdapter);
     }

@@ -12,6 +12,8 @@ public class Survey implements Parcelable {
     private String ownerId;
     private String ownerPic;
     private List<Question> questions;
+    private String id;
+
 
     public String getTitle() {
         return title;
@@ -45,16 +47,24 @@ public class Survey implements Parcelable {
         this.questions = questions;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public Survey() {
 
     }
 
-    public Survey(String title, String ownerId, String ownerPic, List<Question> questions) {
-
+    public Survey(String title, String ownerId, String ownerPic, List<Question> questions, String id) {
         this.title = title;
         this.ownerId = ownerId;
         this.ownerPic = ownerPic;
         this.questions = questions;
+        this.id = id;
     }
 
     protected Survey(Parcel in) {
@@ -67,6 +77,7 @@ public class Survey implements Parcelable {
         } else {
             questions = null;
         }
+        id = in.readString();
     }
 
     @Override
@@ -85,6 +96,7 @@ public class Survey implements Parcelable {
             dest.writeByte((byte) (0x01));
             dest.writeList(questions);
         }
+        dest.writeString(id);
     }
 
     @SuppressWarnings("unused")

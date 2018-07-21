@@ -73,8 +73,10 @@ public class NewSurveyActivity extends AppCompatActivity implements View.OnClick
         survey.setQuestions(mQuestionsAdapter.getQuestions());
         survey.setOwnerId(FirebaseAuth.getInstance().getCurrentUser().getUid());
         survey.setTitle(titleField.getText().toString());
-        DatabaseReference surveysReference = FirebaseDatabase.getInstance().getReference().child("surveys");
-        surveysReference.push().setValue(survey);
+        DatabaseReference surveysReference = FirebaseDatabase.getInstance().getReference().child(getString(R.string.surveys));
+        String id  = surveysReference.push().getKey();
+        survey.setId(id);
+        surveysReference.child(id).setValue(survey);
         Toast.makeText(this, getString(R.string.survey_published_successfully), Toast.LENGTH_SHORT).show();
         finish();
     }

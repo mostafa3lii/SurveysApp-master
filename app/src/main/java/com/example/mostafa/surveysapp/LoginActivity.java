@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 import com.example.mostafa.surveysapp.models.User;
@@ -19,7 +20,13 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Arrays;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class LoginActivity extends AppCompatActivity {
+
+
+    @BindView(R.id.toolbar) Toolbar toolbar;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -31,7 +38,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
         mAuth = FirebaseAuth.getInstance();
         mUsersReference = FirebaseDatabase.getInstance().getReference().child(getString(R.string.users));
 
@@ -43,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     mUsersReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (!dataSnapshot.hasChild(user.getUid()))
                             {
                                 addUser(user);
@@ -53,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
                         }
                     });
                 } else {
@@ -64,6 +72,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivityForResult(
                             AuthUI.getInstance()
                                     .createSignInIntentBuilder()
+                                    .setLogo(R.drawable.logo)
                                     .setIsSmartLockEnabled(false)
                                     .setAvailableProviders(
                                             providers)
@@ -95,6 +104,7 @@ public class LoginActivity extends AppCompatActivity {
         user.setUid(firebaseUser.getUid());
         if (firebaseUser.getPhotoUrl()!=null)
             user.setPhotoUrl(firebaseUser.getPhotoUrl().toString());
+        else user.setPhotoUrl(getString(R.string.pic_url));
         mUsersReference.child(user.getUid()).setValue(user);
     }
 

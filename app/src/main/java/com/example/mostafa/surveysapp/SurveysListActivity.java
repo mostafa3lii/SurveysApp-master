@@ -9,6 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.example.mostafa.surveysapp.models.Question;
 import com.example.mostafa.surveysapp.models.Survey;
@@ -33,12 +36,15 @@ public class SurveysListActivity extends AppCompatActivity implements SurveysAda
 
 
     @BindView(R.id.surveys_list)RecyclerView surveysRecyclerView;
-    private SurveysAdapter mSurveysAdapter;
+    @BindView(R.id.empty_surveys)LinearLayout emptyView;
+    @BindView(R.id.progress)ProgressBar progressBar;
+
     private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference mSurveysReference;
     private ValueEventListener mValueEventListener ;
     private List<Survey> mSurveys;
+    private SurveysAdapter mSurveysAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,22 +52,15 @@ public class SurveysListActivity extends AppCompatActivity implements SurveysAda
         ButterKnife.bind(this);
         mAuth = FirebaseAuth.getInstance();
         mSurveysReference = FirebaseDatabase.getInstance().getReference().child(getString(R.string.surveys));
+
+        mSurveys = new ArrayList<>();
+        mSurveysAdapter = new SurveysAdapter(new ArrayList<Survey>(), this, this);
         surveysRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
-        // testing dummy survey
-        Survey survey = getDummySurvey();
-        List<Survey> surveys = new ArrayList<>();
-        surveys.add(survey);
-
-        mSurveysAdapter = new SurveysAdapter(surveys,this);
         surveysRecyclerView.setAdapter(mSurveysAdapter);
-
 
         mValueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-               /* mSurveys = new ArrayList<>();
                 List<Survey> surveys = new ArrayList<>();
                 for (DataSnapshot snapshot :dataSnapshot.getChildren()) {
                     String uId  = mAuth.getCurrentUser().getUid();
@@ -70,40 +69,16 @@ public class SurveysListActivity extends AppCompatActivity implements SurveysAda
                     if(!snapshot.child(getString(R.string.results)).hasChild(uId) && !survey.getOwnerId().equals(uId))
                         surveys.add(survey);
                 }
-                mSurveysAdapter.addAll(surveys);*/
-
+                mSurveysAdapter.addAll(surveys);
+                progressBar.setVisibility(View.GONE);
+                if(surveys.isEmpty()) emptyView.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                progressBar.setVisibility(View.GONE);
             }
         };
-    }
-
-    private Survey getDummySurvey() {
-        Survey survey = new Survey();
-        survey.setTitle("Survey title");
-        survey.setOwnerId("dsad");
-        survey.setOwnerPic("sasas");
-        List<Question> questions = new ArrayList<>();
-        Question question = new Question();
-        question.setQuestion("What is essay now??");
-        question.setAnswers(new ArrayList<String>());
-        question.setType(1);
-        Question question1 = new Question();
-        question1.setType(2);
-        question1.setAnswers(new ArrayList<String>(Arrays.asList("first", "second","third")));
-        question1.setQuestion("who has answers??");
-        Question question2 = new Question();
-        question2.setType(2);
-        question2.setAnswers(new ArrayList<String>(Arrays.asList("first", "second","third")));
-        question2.setQuestion("who has answers??");
-        questions.add(question);
-        questions.add(question1);
-        questions.add(question2);
-        survey.setQuestions(questions);
-        return survey;
     }
 
     @Override
@@ -142,14 +117,11 @@ public class SurveysListActivity extends AppCompatActivity implements SurveysAda
             case R.id.new_survey:
                 startActivity(new Intent(this,NewSurveyActivity.class));
                 return true;
-            case R.id.my_surveys: {
+            case R.id.my_surveys:
                 Intent intent = new Intent(this, MySurveysActivity.class);
-                ArrayList<Survey> mySurveys = getMySurveys();
-                intent.putParcelableArrayListExtra(getString(R.string.my_surveys),mySurveys);
+                intent.putParcelableArrayListExtra(getString(R.string.my_surveys),getMySurveys());
                 startActivity(intent);
-
-            }
-            return true;
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -158,7 +130,7 @@ public class SurveysListActivity extends AppCompatActivity implements SurveysAda
     private ArrayList<Survey> getMySurveys ()
     {
         ArrayList<Survey> mySurveys = new ArrayList<>();
-        for (Survey survey :mySurveys) {
+        for (Survey survey :mSurveys) {
             if (survey.getOwnerId().equals(mAuth.getCurrentUser().getUid()))
             {
                 mySurveys.add(survey);

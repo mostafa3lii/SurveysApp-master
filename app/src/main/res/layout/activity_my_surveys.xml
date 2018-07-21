@@ -11,46 +11,35 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_pic"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        app:civ_circle_background_color="@android:color/white"
-        android:src="@drawable/baseline_person_black_48"
-        android:layout_gravity="center"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:civ_circle_background_color="@android:color/black"
+        android:layout_gravity="center"
+        android:src="@drawable/person"
+        android:focusable="true"
+        android:focusableInTouchMode="true"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_gravity="center"
         android:id="@+id/username"
-        android:padding="8dp"
+        android:layout_margin="8dp"
+        android:text="Mostafa Aly"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:fontFamily="serif"
+        android:textColor="@android:color/black"
         android:layout_height="wrap_content" />
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <android.support.v7.widget.SearchView
+        android:id="@+id/search"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    <EditText
-        android:hint="@string/search"
-        android:id="@+id/search_field"
-        android:inputType="text"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content" />
-        <ImageButton
-            android:contentDescription="@string/search"
-            android:id="@+id/search_button"
-            android:layout_width="wrap_content"
-            android:layout_gravity="center"
-            android:background="@android:color/transparent"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_search"/>
-    </LinearLayout>
+        android:layout_height="wrap_content"/>
 
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:padding="8dp"
         android:id="@+id/my_surveys_list"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

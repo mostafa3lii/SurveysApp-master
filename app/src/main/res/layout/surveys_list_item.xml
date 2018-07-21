@@ -1,34 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:elevation="4dp"
     android:orientation="horizontal"
     android:padding="16dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:src="@drawable/baseline_person_black_48"
         android:id="@+id/survey_owner_image"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        app:civ_circle_background_color="@android:color/white"/>
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/person"
+        app:civ_circle_background_color="@android:color/white" />
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:padding="16dp">
 
         <TextView
             android:id="@+id/survey_title"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/questions_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-
-
     </LinearLayout>
-
 </LinearLayout>

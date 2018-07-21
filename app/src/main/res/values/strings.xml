@@ -8,7 +8,7 @@
     <string name="single_answer">Single answer</string>
     <string name="multiple_answers">Multiple answer</string>
     <string name="survey_title">Survey title</string>
-    <string name="question">question</string>
+    <string name="question">Question</string>
     <string name="add_answer">Add answer</string>
     <string name="submit">Submit</string>
     <string name="add_option">Add option</string>
@@ -34,4 +34,14 @@
     <string name="answer_all_questions">Answer all questions</string>
     <string name="next">Next</string>
     <string name="progress">%d/%d</string>
+    <string name="pic_url">https://i.stack.imgur.com/dr5qp.jpg</string>
+    <string name="question_count">%d Questions</string>
+    <string name="cancel">Cancel</string>
+    <string name="no_search_results">No search results</string>
+    <string name="is_searching">Is searching</string>
+    <string name="search_word">Search word</string>
+    <string name="input_text">Input field</string>
+    <string name="empty_surveys_message">No surveys to show</string>
+    <string name="empty_surveys_sub_message">Invite your friends to add surveys. You can poll on others surveys only Once.</string>
+    <string name="new_question">New question</string>
 </resources>

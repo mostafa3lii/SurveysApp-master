@@ -4,55 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
     android:focusable="true"
     android:focusableInTouchMode="true"
     tools:context=".NewSurveyActivity">
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <EditText
+        <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/survey_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="@string/survey_title"
+                android:inputType="text"
+                android:padding="16dp"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/questions_list"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="16dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/publish"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:padding="16dp"
-            android:id="@+id/survey_title"
-            android:hint="@string/survey_title"/>
+            android:layout_gravity="center|bottom"
+            android:layout_margin="12dp"
+            android:background="@drawable/button_background"
+            android:text="@string/publish"
+            android:textColor="#fff"
+            android:textStyle="bold" />
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/questions_list"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-    </LinearLayout>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#fff"
-        android:layout_gravity="center|bottom"
-        android:background="@drawable/button_background"
-        android:layout_margin="8dp"
-        android:textStyle="bold"
-        android:id="@+id/publish"
-        android:text="@string/publish"/>
-
-</FrameLayout>
+    </FrameLayout>
 
     <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/add_question"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="bottom|end"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         app:menu_animationDelayPerItem="50"
-        android:paddingEnd="8dp"
-        android:paddingStart="8dp"
-        app:menu_backgroundColor="#5000"
+        app:menu_backgroundColor="#5fff"
         app:menu_colorNormal="@color/colorAccent"
         app:menu_colorPressed="@color/colorPrimary"
         app:menu_colorRipple="#eee"
@@ -108,6 +113,5 @@
             app:fab_size="mini" />
 
     </com.github.clans.fab.FloatingActionMenu>
-
 
 </android.support.design.widget.CoordinatorLayout>

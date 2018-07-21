@@ -1,5 +1,6 @@
 package com.example.mostafa.surveysapp;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.mostafa.surveysapp.models.Survey;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -19,10 +21,12 @@ public class SurveysAdapter extends RecyclerView.Adapter<SurveysAdapter.ViewHold
 
     private List<Survey> surveys ;
     private OnClickListener onClickListener;
+    private Context context;
 
-    public SurveysAdapter(List<Survey> surveys, OnClickListener onClickListener) {
+    public SurveysAdapter(List<Survey> surveys, OnClickListener onClickListener, Context context) {
         this.surveys = surveys;
         this.onClickListener = onClickListener;
+        this.context = context;
     }
 
     @NonNull
@@ -37,7 +41,8 @@ public class SurveysAdapter extends RecyclerView.Adapter<SurveysAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Survey survey = surveys.get(position);
         holder.titleTextView.setText(survey.getTitle());
-        holder.countTextView.setText(String.valueOf(survey.getQuestions().size()));
+        holder.countTextView.setText(context.getString(R.string.question_count,survey.getQuestions().size()));
+        Picasso.get().load(survey.getOwnerPic()).into(holder.ownerImageView);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,11 +69,12 @@ public class SurveysAdapter extends RecyclerView.Adapter<SurveysAdapter.ViewHold
     }
 
     public void addAll (List<Survey> surveys){
+        this.surveys.clear();
         this.surveys.addAll(surveys);
         notifyDataSetChanged();
     }
 
     public interface OnClickListener{
-        public void onClick (Survey survey);
+         void onClick (Survey survey);
     }
 }

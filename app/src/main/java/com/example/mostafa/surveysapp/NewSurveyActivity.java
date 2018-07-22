@@ -3,6 +3,7 @@ package com.example.mostafa.surveysapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,8 @@ import com.example.mostafa.surveysapp.models.Question;
 import com.example.mostafa.surveysapp.models.Survey;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -76,9 +79,14 @@ public class NewSurveyActivity extends AppCompatActivity implements View.OnClick
         DatabaseReference surveysReference = FirebaseDatabase.getInstance().getReference().child(getString(R.string.surveys));
         String id  = surveysReference.push().getKey();
         survey.setId(id);
-        surveysReference.child(id).setValue(survey);
-        Toast.makeText(this, getString(R.string.survey_published_successfully), Toast.LENGTH_SHORT).show();
-        finish();
+        surveysReference.child(id).setValue(survey).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Toast.makeText(NewSurveyActivity.this, getString(R.string.survey_published_successfully), Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
+
     }
 
     @Override

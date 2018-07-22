@@ -24,10 +24,8 @@
         android:layout_gravity="center"
         android:id="@+id/username"
         android:layout_margin="8dp"
-        android:text="Mostafa Aly"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:fontFamily="serif"
         android:textColor="@android:color/black"
         android:layout_height="wrap_content" />
 

@@ -25,10 +25,14 @@
     </android.support.v7.widget.Toolbar>
 
     <ImageView
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:contentDescription="@string/app_name"
+        android:paddingBottom="80dp"
+        android:paddingLeft="100dp"
+        android:paddingRight="100dp"
+        android:scaleType="fitCenter"
         android:src="@drawable/logo" />
 
     <ProgressBar
@@ -36,7 +40,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
         android:minWidth="300dp" />
 
 </LinearLayout>

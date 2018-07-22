@@ -44,4 +44,7 @@
     <string name="empty_surveys_message">No surveys to show</string>
     <string name="empty_surveys_sub_message">Invite your friends to add surveys. You can poll on others surveys only Once.</string>
     <string name="new_question">New question</string>
+    <string name="positions">Positions</string>
+    <string name="answer_the_question">Answer the question</string>
+    <string name="poll_submitted">Poll submitted</string>
 </resources>

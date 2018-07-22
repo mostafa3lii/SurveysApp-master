@@ -72,7 +72,6 @@ public class MySurveysActivity extends AppCompatActivity{
             @Override
             public boolean onClose() {
                 isSearching = false;
-                searchView.clearFocus();
                 mySurveysAdapter.addAll(mMySurveys);
                 return true;
             }
@@ -93,7 +92,8 @@ public class MySurveysActivity extends AppCompatActivity{
         super.onRestoreInstanceState(savedInstanceState);
         isSearching = savedInstanceState.getBoolean(getString(R.string.is_searching));
         mSearchWord = savedInstanceState.getString(getString(R.string.search_word));
-        searchView.setQuery(savedInstanceState.getString(getString(R.string.input_text)),isSearching);
+        searchView.setQuery(savedInstanceState.getString(getString(R.string.input_text)),false);
+        if(isSearching)searchOnSurvey();
         mySurveysRecyclerView.getLayoutManager().onRestoreInstanceState(
                 savedInstanceState.getParcelable(getString(R.string.position)));
     }
@@ -141,6 +141,4 @@ public class MySurveysActivity extends AppCompatActivity{
     private interface OnSearchFinished{
         void onFinished(List<Survey> surveys);
     }
-
-
 }

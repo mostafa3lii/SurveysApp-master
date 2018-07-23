@@ -42,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
         mAuth = FirebaseAuth.getInstance();
         mUsersReference = FirebaseDatabase.getInstance().getReference().child(getString(R.string.users));
 
@@ -64,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
+
                         }
                     });
                 } else {
@@ -86,9 +88,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
         mAuth.addAuthStateListener(mAuthListener);
+        super.onStart();
     }
 
     @Override
@@ -123,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 Toast.makeText(this, "signed in", Toast.LENGTH_SHORT).show();
             } else if (resultCode == RESULT_CANCELED) {
-
+                    
             }
         }
     }

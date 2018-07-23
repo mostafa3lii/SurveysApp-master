@@ -23,16 +23,13 @@
             android:textSize="30sp"
             android:textStyle="bold" />
     </android.support.v7.widget.Toolbar>
-
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_gravity="center"
         android:contentDescription="@string/app_name"
-        android:paddingBottom="80dp"
-        android:paddingLeft="100dp"
-        android:paddingRight="100dp"
         android:scaleType="fitCenter"
+        android:layout_margin="50dp"
         android:src="@drawable/logo" />
 
     <ProgressBar
@@ -40,6 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:minWidth="300dp"
+        android:indeterminate="true"
         style="?android:attr/progressBarStyleHorizontal"
         />
 

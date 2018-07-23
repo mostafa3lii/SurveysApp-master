@@ -47,4 +47,5 @@
     <string name="positions">Positions</string>
     <string name="answer_the_question">Answer the question</string>
     <string name="poll_submitted">Poll submitted</string>
+    <string name="you_have_no_surveys">You have no surveys</string>
 </resources>

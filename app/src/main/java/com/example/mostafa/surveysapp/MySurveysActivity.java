@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -33,6 +34,7 @@ public class MySurveysActivity extends AppCompatActivity{
     @BindView(R.id.username)TextView usernameTextView;
     @BindView(R.id.search)SearchView searchView;
     @BindView(R.id.my_surveys_list)RecyclerView mySurveysRecyclerView;
+    @BindView(R.id.message)TextView messageTextView;
     private MySurveysAdapter mySurveysAdapter;
     private ArrayList<Survey> mMySurveys;
     private boolean isSearching ;
@@ -44,8 +46,8 @@ public class MySurveysActivity extends AppCompatActivity{
         setContentView(R.layout.activity_my_surveys);
         ButterKnife.bind(this);
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        Picasso.get().load(currentUser.getPhotoUrl()).into(profileImage);
-        usernameTextView.setText(currentUser.getDisplayName());
+//        Picasso.get().load(currentUser.getPhotoUrl()).into(profileImage);
+//        usernameTextView.setText(currentUser.getDisplayName());
         mMySurveys = getIntent().getParcelableArrayListExtra(getString(R.string.my_surveys));
         mySurveysAdapter = new MySurveysAdapter(mMySurveys);
         mySurveysRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -54,6 +56,8 @@ public class MySurveysActivity extends AppCompatActivity{
     }
 
     private void updateSearchView() {
+        searchView.setIconified(false);
+        searchView.clearFocus();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -73,9 +77,20 @@ public class MySurveysActivity extends AppCompatActivity{
             public boolean onClose() {
                 isSearching = false;
                 mySurveysAdapter.addAll(mMySurveys);
+                searchView.clearFocus();
+                closeKeyboard();
                 return true;
             }
         });
+    }
+
+    private void closeKeyboard()
+    {
+        InputMethodManager inputManager =
+                (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(
+                this.getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     @Override
@@ -106,7 +121,8 @@ public class MySurveysActivity extends AppCompatActivity{
                 if(surveys!=null && !surveys.isEmpty())
                     mySurveysAdapter.addAll(surveys);
                 else
-                    Toast.makeText(MySurveysActivity.this, getString(R.string.no_search_results), Toast.LENGTH_SHORT).show();
+                    if(mMySurveys.size()!=0)
+                    messageTextView.setText(getString(R.string.no_search_results));
             }
         });
         surveySearchTask.execute(mSearchWord);

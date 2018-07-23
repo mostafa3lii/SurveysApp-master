@@ -25,14 +25,19 @@
                 android:hint="@string/survey_title"
                 android:inputType="text"
                 android:padding="16dp"
+                android:imeOptions="actionDone"
                 android:textSize="24sp"
                 android:textStyle="bold" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/black"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/questions_list"
+                tools:listitem="@layout/questions_list_item"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_margin="16dp"
                 android:layout_weight="1" />
         </LinearLayout>
 

@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
     tools:context=".MySurveysActivity">
 
 
@@ -13,31 +12,52 @@
         android:id="@+id/profile_pic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:civ_circle_background_color="@android:color/black"
         android:layout_gravity="center"
-        android:src="@drawable/person"
         android:focusable="true"
-        android:focusableInTouchMode="true"/>
+        android:focusableInTouchMode="true"
+        android:padding="16dp"
+        android:src="@drawable/person"
+        app:civ_circle_background_color="@android:color/black" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_gravity="center"
         android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_margin="8dp"
-        android:textSize="24sp"
-        android:textStyle="bold"
         android:textColor="@android:color/black"
-        android:layout_height="wrap_content" />
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <android.support.v7.widget.SearchView
         android:id="@+id/search"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:elevation="4dp"
+        app:queryHint="@string/search" />
 
-
-    <android.support.v7.widget.RecyclerView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:id="@+id/my_surveys_list"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="serif"
+            android:text="@string/you_have_no_surveys"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/my_surveys_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/my_surveys_list_item" />
+
+
+    </FrameLayout>
 
 </LinearLayout>

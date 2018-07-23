@@ -18,12 +18,18 @@
         </activity>
         <activity
             android:name=".NewSurveyActivity"
-            android:parentActivityName=".SurveysListActivity"
-            android:label="@string/new_survey"/>
+            android:label="@string/new_survey">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SurveysListActivity" />
+        </activity>
         <activity
             android:name=".NewQuestionActivity"
-            android:parentActivityName=".NewSurveyActivity"
-            android:label="@string/new_question"/>
+            android:label="@string/new_question">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".NewSurveyActivity" />
+        </activity>
         <activity
             android:name=".MySurveysActivity"
             android:parentActivityName=".SurveysListActivity"

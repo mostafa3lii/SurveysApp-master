@@ -36,10 +36,11 @@
         android:src="@drawable/logo" />
 
     <ProgressBar
-        style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:minWidth="300dp" />
+        android:minWidth="300dp"
+        style="?android:attr/progressBarStyleHorizontal"
+        />
 
 </LinearLayout>

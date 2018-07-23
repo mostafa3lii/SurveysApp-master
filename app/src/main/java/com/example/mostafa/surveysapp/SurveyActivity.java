@@ -18,6 +18,7 @@ import com.example.mostafa.surveysapp.models.Survey;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -136,9 +137,12 @@ public class SurveyActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void submitResult() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         Result result = new Result();
-        result.setOwnerId(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        result.setOwnerId(currentUser.getUid());
         result.setQuestions(mAnsweredQuestions);
+        result.setOwnerName(currentUser.getDisplayName());
+        result.setOwnerPic(currentUser.getPhotoUrl().toString());
         DatabaseReference resultReference = FirebaseDatabase.getInstance().getReference()
                 .child(mSurvey.getId()).child(getString(R.string.results))
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid());

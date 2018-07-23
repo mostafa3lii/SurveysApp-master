@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
     android:orientation="vertical"
     tools:context=".SurveyActivity">
 
@@ -11,7 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:padding="16dp"
         android:textSize="20sp"
         android:textColor="@android:color/black"
         android:id="@+id/question"
@@ -21,7 +20,6 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:padding="8dp"
         android:layout_height="match_parent">
 
         <LinearLayout
@@ -37,16 +35,17 @@
                 android:background="@android:color/transparent"
                 android:gravity="top"
                 android:textSize="16sp"
-                android:padding="4dp"
+                android:padding="8dp"
                 android:hint="@string/type_your_answer"
                 android:inputType="textMultiLine"
-                android:minLines="3" />
+                android:minLines="4" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/options_list"
+                tools:listitem="@layout/answer_list_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp" />
+                android:padding="16dp" />
 
         </LinearLayout>
 

@@ -1,6 +1,7 @@
 package com.example.mostafa.surveysapp;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import com.example.mostafa.surveysapp.models.User;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -104,7 +106,13 @@ public class LoginActivity extends AppCompatActivity {
         user.setUid(firebaseUser.getUid());
         if (firebaseUser.getPhotoUrl()!=null)
             user.setPhotoUrl(firebaseUser.getPhotoUrl().toString());
-        else user.setPhotoUrl(getString(R.string.pic_url));
+        else {
+            user.setPhotoUrl(getString(R.string.pic_url));
+            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                    .setPhotoUri(Uri.parse(getString(R.string.pic_url)))
+                    .build();
+            firebaseUser.updateProfile(profileUpdates);
+             }
         mUsersReference.child(user.getUid()).setValue(user);
     }
 
